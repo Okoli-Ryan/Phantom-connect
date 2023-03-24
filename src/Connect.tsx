@@ -1,6 +1,6 @@
 import base58 from 'bs58';
 import React, { useEffect, useState } from 'react';
-import { Button, Linking, Text, View } from 'react-native';
+import { Alert, Button, Linking, Text, View } from "react-native";
 import { URL } from 'react-native-url-polyfill';
 import nacl from 'tweetnacl';
 
@@ -28,7 +28,10 @@ export default function Connect() {
 				setDeepLink(initialUrl);
 			}
 		})();
-		Linking.addEventListener("url", (e) => setDeepLink(e.url));
+		Linking.addEventListener("url", (e) => {
+			setDeepLink(e.url);
+			Alert.alert(e.url);
+		});
 		return () => {
 			Linking.removeAllListeners("url");
 		};
